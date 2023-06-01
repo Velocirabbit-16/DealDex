@@ -15,10 +15,7 @@ const UserSchema = new mongoose.Schema({
   username: { type: String, required: true, min: 1, unique: true },
   // type must be string, must be atleast 6 characters, it is required
   password: { type: String, required: true },
-  favorites: {
-    type: Array,
-    default: [],
-  },
+  favorites: []
 });
 
 const User = mongoose.model('User', UserSchema);

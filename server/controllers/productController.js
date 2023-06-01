@@ -1,6 +1,4 @@
 const { query } = require('express');
-// const db = require('../models/itemModel');
-const data = require("./TEST_DATA");
 
 const productController = {};
 
