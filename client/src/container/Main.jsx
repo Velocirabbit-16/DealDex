@@ -22,21 +22,27 @@ export default function Main() {
     console.log('NewUserFilters', newState);
     setUserFilters(newState);
     let newFunc;
-    switch(key){
-      case "maxPrice":
-        {newFunc = (ele)=>{
-          const priceNum = Number(ele.price.slice(1))
-          return priceNum <= targetVal
-        }}
-      case "minPrice":
-        {newFunc = (ele)=>{
-          const priceNum = Number(ele.price.slice(1))
-          return priceNum >= targetVal
-        }}
-      case "prime":
-        {break}
-      case "rating":
-        {break}
+    switch (key) {
+      case 'maxPrice': {
+        newFunc = (ele) => {
+          const priceNum = Number(ele.price.slice(1));
+          return priceNum <= targetVal;
+        };
+        break;
+      }
+      case 'minPrice': {
+        newFunc = (ele) => {
+          const priceNum = Number(ele.price.slice(1));
+          return priceNum >= targetVal;
+        };
+        break;
+      }
+      case 'prime': {
+        break;
+      }
+      case 'rating': {
+        break;
+      }
     }
     ///
     // const dummyObj = {};
