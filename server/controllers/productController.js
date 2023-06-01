@@ -1,9 +1,7 @@
-const { query } = require('express');
 
 const productController = {};
 
 productController.fetchProducts = async (req, res, next) => {
-  // const search = req.body.search.replace(/\s/g, "%20");
   
   const { search } = req.body;
 
@@ -19,7 +17,6 @@ productController.fetchProducts = async (req, res, next) => {
   try {
     const response = await fetch(url, options);
     const result = await response.json();
-    // console.log(result);
 
     res.locals.products = result.data.map((product) => {
       const { product_title, product_photos } = product;
