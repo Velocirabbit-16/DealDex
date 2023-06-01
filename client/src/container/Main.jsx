@@ -26,15 +26,14 @@ export default function Main() {
       switch (key) {
         case 'maxPrice': {
           newFunc = (ele) => {
-            const priceNum = Number(ele.price.slice(1));
-            return priceNum <= targetVal; //if price is num just spit price straight in
+            return ele.price <= targetVal; //if price is num just spit price straight in
           };
           break;
         }
         case 'minPrice': {
           newFunc = (ele) => {
-            const priceNum = Number(ele.price.slice(1)); //if price is num just spit price straight in
-            return priceNum >= targetVal;
+            //if price is num just spit price straight in
+            return ele.price >= targetVal;
           };
           break;
         }
