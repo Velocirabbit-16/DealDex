@@ -11,10 +11,12 @@ export default function ProductList(props) {
         {specs.map((ele, i) => (
           <ProductCard
             key={"prodcard" + i}
-            name={ele.productname}
+            name={ele.title}
             price={ele.price}
-            imageURL={ele.img}
-            specs={ele}
+            imageURL={ele.image}
+            rating={ele.rating}
+            prime={ele.prime}
+            // specs={ele}
           />
         ))}
       </div>
