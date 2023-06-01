@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import ProductList from '../component/ProductList.jsx';
 import SearchBar from '../component/SearchBar.jsx';
-import testArr from '../testJSON.js';
 
 export default function Main() {
   // define state variable
-  const [product, setProduct] = useState('Computer Monitors');
-  const [specs, setSpecs] = useState(testArr); // or {} depends on backend
+  const [product, setProduct] = useState('');
+  const [specs, setSpecs] = useState([]); // or {} depends on backend
   //const [filteredHits, setFilteredHits] = useState([]); // or {} depends on backend
   const [userFilters, setUserFilters] = useState({});
 
