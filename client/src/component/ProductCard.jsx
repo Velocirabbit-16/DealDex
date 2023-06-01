@@ -1,11 +1,16 @@
-import React from 'react';
+import React from "react";
 // import ProductCardSpecs from './ProductCardSpecs.jsx';
 
 export default function ProductCard(props) {
   //dummy url for now
   // const imageURL =
   //   'https://images.unsplash.com/photo-1541562232579-512a21360020?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80';
-  const { name, price, specs, imageURL } = props;
+  const { name, price, specs, imageURL, rating, prime } = props;
+
+  const isPrime = (prime) => {
+    if (prime) return "YES";
+    else return "NO";
+  };
 
   // creating key array so we can use map to render the product card specs
   // these show up underneath the product card name, image, and price
@@ -19,14 +24,15 @@ export default function ProductCard(props) {
   // }
 
   return (
-    <div className="h-100 w-100">
-      <h1 className="text-center text-[24px]">{name}</h1>
+    <div className='h-100 w-100'>
+      <h1 className='text-center text-[24px]'>{name}</h1>
       <img
-        className="object-scale-down h-64 w-64 block mx-auto"
-        src={imageURL}
-      ></img>
-      <p className="text-center text-[20px]">{'$' + price}</p>
-      <div className="grid grid-cols-2 m-4">
+        className='object-scale-down h-64 w-64 block mx-auto'
+        src={imageURL}></img>
+      <p className='text-center text-[20px]'>{price}</p>
+      <p className='text-center text-[20px]'>{rating}</p>
+      <p className='text-center text-[20px]'>{isPrime(prime)}</p>
+      <div className='grid grid-cols-2 m-4'>
         {/* {results.map((ele, i) => (
           <ProductCardSpecs
             key={results[i]+i} 
