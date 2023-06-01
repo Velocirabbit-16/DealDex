@@ -10,12 +10,20 @@ export default function ProductCard(props) {
   const isPrime = (prime) => {
     if (prime)
       return (
-        <img
-          className=' flex object-scale-down h-20 w-20 mx-auto'
-          src='https://qph.cf2.quoracdn.net/main-qimg-227bd435134f40c302b9955d96eabaff'
-        />
+        <p className='flex h-20 text-center'>
+          <img
+            className=' flex object-scale-down h-10 w-20 mx-auto'
+            src='https://qph.cf2.quoracdn.net/main-qimg-227bd435134f40c302b9955d96eabaff'
+          />
+        </p>
       );
-    else return "Regular Delivery";
+    else
+      return (
+        <p className='flex h-20 text-center'>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Regular
+          Delivery
+        </p>
+      );
   };
 
   const renderStars = (rating) => {
@@ -67,12 +75,14 @@ export default function ProductCard(props) {
 
   return (
     <div className=''>
-      <div className='border h-100 w-80 bg-white'>
+      <div className='border max-h-70 w-80 bg-white'>
         <img className='block mx-auto' src={imageURL}></img>
-        <h1 className='text-[24px] mx-7 font-amazonEmber line-clamp-4 hover:line-clamp-none'>
+        <h1 className='text-[24px] mx-7 font-amazonEmber line-clamp-3 hover:line-clamp-none'>
           {name}
         </h1>
-        <p className='text-center text-[40px] mx-7 font-amazonEmber'>{price}</p>
+        <p className='text-center text-[40px] mx-7 font-amazonEmber'>
+          ${price}
+        </p>
         <p className='flex justify-evenly text-center text-[20px] mx-7'>
           {renderStars(rating)}
         </p>
