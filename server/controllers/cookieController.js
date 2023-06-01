@@ -5,9 +5,7 @@ cookieController.create = async (req, res, next) => {
   user = res.locals.user;
 
   try {
-    const token = await jwt.sign(user, process.env.MY_SECRET, { expiresIn: '1h'})
-
-    console.log('token:', token)
+    const token = await jwt.sign({ ...user }, process.env.MY_SECRET, { expiresIn: '1h'})
 
     res.cookie('token', token, {
       httpOnly: true
@@ -17,13 +15,12 @@ cookieController.create = async (req, res, next) => {
 
   } catch(err) {
     return next({
-      log: 'Error in cookieController.create',
+      log: `${err} in cookieController.create`,
       status: 400,
       message: { err: 'Error in cookieController.create' }
     });
   }
   
-
 }
 
 cookieController.verify = async (req, res, next) => {
@@ -31,16 +28,20 @@ cookieController.verify = async (req, res, next) => {
 
   try {
     const user = jwt.verify(token, process.env.MY_SECRET)
-
-    res.locals.userId = user.userId;
-
+  
+    res.locals.userId = user._doc._id;
+  
+    console.log('verified')
     next();
 
-  } catch(error) {
-
-    res.clearCookie('token');
-    return res.redirect('/auth/login')
+  } catch(err) {
+    return next({
+      log: `${err} in cookieController.verify`,
+      status: 400,
+      message: { err: 'Error in cookieController.verify' }
+    });
   }
+
 }
 
 

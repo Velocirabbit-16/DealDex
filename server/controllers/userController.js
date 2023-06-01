@@ -53,19 +53,19 @@ userController.addFavorites = async (req, res, next) => {
 
   try {
 
-     const user = await User.findByIdAndUpdate(
-      res.locals.userId,
-      { $push: { favorites: favorite } },
-      { new: true }
-    )
+    const user = await User.findById(res.locals.userId)
 
+    user.favorites.push(favorite);
+
+    const userSave = await user.save();
+        
     next();
 
   } catch (err) {
     return next({
-      log: 'Error in userController getFavorites',
+      log: `${err} userController.getFavorites`,
       status: 400,
-      message: { err: 'Error in userController getFavorites' }
+      message: { err: 'Error in userController.getFavorites' }
     });
   }
 }
@@ -81,25 +81,11 @@ userController.getFavorites = async (req, res, next) => {
 
   } catch (err) {
     return next({
-      log: 'Error in userController getFavorites',
+      log: `${err} in userController.getFavorites`,
       status: 400,
-      message: { err: 'Error in userController getFavorites' }
+      message: { err: 'Error in userController.getFavorites' }
     });
   }
 }
 
-// userController.profile = async (req, res, next) => {
-//   const { token } = req.cookies;
-
-//   jwt.verify(token, secret, {}, (err, info) => {
-//     if (err) throw err;
-//     res.json(info);
-//   });
-// }
-
 module.exports = userController;
-
-
-// const jwt = require('jsonwebtoken');
-// token for jwt later
-// const secret = 'changjunpatrickdocortland';
