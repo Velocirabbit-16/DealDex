@@ -6,12 +6,16 @@ export default function SearchBar(props) {
   //table format!!! what kind of data are we getting back? is it an object? an array? pref array tho
 
   return (
-    <div className='flex flex-col min-w-[200px] items-start flex-grow'>
+    <div className='flex flex-col min-w-[200px] items-start flex-grow '>
       <div className='py-4 px-6'>
+        {/* <input
+          type='text'
+          placeholder='Search'
+          className='bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 w-full border border-gray-400 rounded shadow'></input> */}
         <select
           value={product}
           onChange={(e) => handleSelect(e)}
-          className='bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow'>
+          className='bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow font-amazonEmber'>
           <option value=''>Select product</option>
           <option value='Computer Monitors'>Monitors</option>
           <option value='TVs'>TVs</option>

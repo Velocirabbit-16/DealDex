@@ -4,7 +4,7 @@ import RefreshRate from "./Specs/RefreshRate.jsx";
 // this has a lot of imports for now, would like to make this more modular in the future
 
 export default function ProductSpecifications(props) {
-  const { product } = props;
+  const { product, updateFilter } = props;
 
   const inputStyle = {
     paddingTop: "0.5rem",
@@ -22,18 +22,62 @@ export default function ProductSpecifications(props) {
     width: "100%",
   };
 
+  // return (
+  //   <div>
+  //     {product === 'Computer Monitors' && (
+  //       <div>
+  //         <input
+  //           type="text"
+  //           placeholder="Max Price"
+  //           onChange={(e) => updateFilter(e.target.value, 'maxPrice')}
+  //           style={inputStyle}
+  //         ></input>
+  //         <input
+  //           type="text"
+  //           placeholder="Min Price"
+  //           onChange={(e) => updateFilter(e.target.value, 'minPrice')}
+  //           style={inputStyle}
+  //         ></input>
+  //         <input
+  //           type="text"
+  //           placeholder="Size (inches)"
+  //           style={inputStyle}
+  //         ></input>
+  //         <Resolution monitorSpecs />
+  //         <RefreshRate monitorSpecs />
+  //       </div>
+  //     )}
+
   return (
     <div>
       {product === "Computer Monitors" && (
         <div>
-          <input type='text' placeholder='Max Price' style={inputStyle}></input>
-          <input type='text' placeholder='Min Price' style={inputStyle}></input>
           <input
             type='text'
-            placeholder='Size (inches)'
+            placeholder='Max Price'
+            onChange={(e) => updateFilter(e.target.value, "maxPrice")}
             style={inputStyle}></input>
-          <Resolution monitorSpecs />
-          <RefreshRate monitorSpecs />
+          <input
+            type='text'
+            placeholder='Min Price'
+            onChange={(e) => updateFilter(e.target.value, "minPrice")}
+            style={inputStyle}></input>
+          <input
+            type='text'
+            placeholder='Min Rating'
+            style={inputStyle}
+            onChange={(e) => updateFilter(e.target.value, "rating")}></input>
+          <div className='flex'>
+            <input
+              type='checkbox'
+              placeholder='Prime'
+              onChange={(e) => updateFilter(e.target.checked, "prime")}
+              className='flex bg-white hover:bg-gray-100 text-gray-800 mr-4 font-semibold py-2 w-5 font-amazonEmber'
+            />
+            <p className='flex text-[#2A96C5] text-[20px] md:font-bold'>
+              Prime
+            </p>
+          </div>
         </div>
       )}
       {product === "TVs" && (
