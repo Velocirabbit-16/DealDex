@@ -20,7 +20,7 @@ export default function ProductCard(props) {
 
   const renderStars = (rating) => {
     const stars = [];
-    let starRating = parseFloat(rating.slice(0, 3));
+    let starRating = rating;
     for (let i = 5; i > 0; i--) {
       if (starRating >= 1 && i - starRating >= 0) {
         stars.push(
