@@ -45,10 +45,4 @@ cookieController.verify = async (req, res, next) => {
 }
 
 
-
-
-
-
-
-
 module.exports = cookieController;
