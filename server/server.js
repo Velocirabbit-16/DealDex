@@ -1,6 +1,11 @@
 const express = require('express');
 const path = require('path');
+const cookieParser = require("cookie-parser");
+const dotenv = require('dotenv');
 
+dotenv.config();
+
+dotenv.config()
 const PORT = 3000
 
 // Router
@@ -10,6 +15,7 @@ const scraperRouter = require('./routes/scraperRouter.js')
 
 const app = express();
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -47,12 +53,3 @@ app.listen(PORT, () => {
 });
 
 module.exports = app;
-
-// Unused stuff?
-// const cors = require('cors');
-// app.use(cors());
-// app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
-
-// const jwt = require('jsonwebtoken');
-// token for jwt later
-// const secret = 'changjunpatrickdocortland';
