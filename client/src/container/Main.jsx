@@ -1,76 +1,123 @@
-import React, {useState} from 'react';
-import ProductList from '../component/ProductList.jsx';
-import SearchBar from '../component/SearchBar.jsx';
-import Owen from '../component/Owen.jsx';
+import React, { useState } from "react";
+import ProductList from "../component/ProductList.jsx";
+import SearchBar from "../component/SearchBar.jsx";
 
 export default function Main() {
-
-  // define state variable 
-  const [product, setProduct] = useState('');
-  const [specs, setSpecs] = useState([]); // or {} depends on backend 
+  // define state variable
+  const [product, setProduct] = useState("");
+  const [specs, setSpecs] = useState([]); // or {} depends on backend
   //const [filteredHits, setFilteredHits] = useState([]); // or {} depends on backend
   const [userFilters, setUserFilters] = useState({});
- 
 
   /*
     useEffect to fetch product names from Product Table ( does not exist yet :) )
     so here is some hard code
   */
 
-  const updateFilter = (event, key) => {
+  const updateFilter = (targetVal, key) => {
     //takes a key (spec), and an input (event.target), and adds it to userFilters
-    const dummyObj = {};
-    dummyObj[key] = event.target.value;
-    const newUserFilters = Object.assign({}, userFilters, dummyObj);
-    setUserFilters(newUserFilters);
-  }
+    const newState = Object.assign({}, userFilters);
+    console.log(targetVal);
+    if (targetVal === "") {
+      delete newState[key];
+    } else {
+      let newFunc;
+      //adds a new filter function to the array based on what kind of change is made
+      switch (key) {
+        case "maxPrice": {
+          newFunc = (ele) => {
+            return ele.price <= targetVal; //if price is num just spit price straight in
+          };
+          break;
+        }
+        case "minPrice": {
+          newFunc = (ele) => {
+            //if price is num just spit price straight in
+            return ele.price >= targetVal;
+          };
+          break;
+        }
+        case "prime": {
+          newFunc = (ele) => {
+            return ele.prime == targetVal;
+          };
+          break;
+        }
+        case "rating": {
+          newFunc = (ele) => {
+            return ele.rating >= targetVal;
+          };
+          break;
+        }
+        default: {
+          console.log("oops a mistake happened");
+          break;
+        }
+      }
+      newState[key] = newFunc;
+    }
+    console.log("NewUserFilters", newState);
+    setUserFilters(newState);
+    ///
+    // const dummyObj = {};
+    // dummyObj[key] = event.target.value;
+    // const newUserFilters = Object.assign({}, userFilters, dummyObj);
+    // setUserFilters(newUserFilters);
+    //
+  };
+
+  //takes in array of products, returns a filtered array.
+  // iterates through all the filters in the userFilters array.
+  const applyFilters = (arr) => {
+    const filterArr = Object.values(userFilters);
+    return filterArr.reduce((acc, curr) => acc.filter(curr), arr);
+  };
 
   const handleSelect = async (event) => {
     const selectedCategory = event.target.value;
+    console.log("selected category ", selectedCategory);
     setProduct(event.target.value);
 
     try {
-      const response = await fetch('/api/category', {
-        method: 'POST',
-        body: JSON.stringify({category: selectedCategory}),
+      const response = await fetch("scraper/scrape", {
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json; charset=UTF-8'
-        }
+          "Content-Type": "application/json; charset=UTF-8",
+        },
       });
       const data = await response.json();
       // response should be an array of objects which are product listings
       // send category type and response to product specs component for further rendering
       setSpecs(data);
-
-
     } catch (error) {
       console.log({
-        log: 'handleError',
+        log: "handleError",
         status: 400,
-        message: 'blew up in handleData ', error
+        message: "blew up in handleData ",
+        error,
       });
     }
-  }
-  
+  };
+
   return (
-    <div className="border border-solid border-green-400 flex flex-grow bg-green-100"> 
-      <div className="flex flex-col flex-shrink border-solid border border-red-400 w-56"> 
-        <SearchBar 
+    <div className='border border-solid border-green-400 flex flex-grow'>
+      <div className='flex flex-col flex-shrink w-56 mr-4 bg-green-100'>
+        <SearchBar
           handleSelect={handleSelect}
           product={product}
-          specs={specs}
+          // specs={specs}
           updateFilter={updateFilter}
-          />
-        <Owen/>
+        />
       </div>
-      <div className="flex flex-grow border-solid border border-red-400"> 
-        <ProductList 
+      <div className='flex flex-grow'>
+        <ProductList
           product={product}
           specs={specs}
+          applyFilters={applyFilters}
         />
       </div>
     </div>
-  )
+  );
 }
 
 //ideally we dont need to drill specs down into product list, but for presentation purposes we are drilling specs down into product list
