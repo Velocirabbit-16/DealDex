@@ -14,14 +14,30 @@ export default function Main() {
     so here is some hard code
   */
 
-  const updateFilter = (event, key) => {
+  const updateFilter = (targetVal, key) => {
     //takes a key (spec), and an input (event.target), and adds it to userFilters
     const newState = structuredClone(userFilters);
-    if (event.target.value === '') delete newState[key];
-    else newState[key] = event.target.value; // <- change this line {rating: (ele)=>ele.rating > 4, price: (ele)=>ele.price < 1500, }
+    if (targetVal === '') delete newState[key];
+    else newState[key] = targetVal; // <- change this line {rating: (ele)=>ele.rating > 4, price: (ele)=>ele.price < 1500, }
     console.log('NewUserFilters', newState);
     setUserFilters(newState);
-
+    let newFunc;
+    switch(key){
+      case "maxPrice":
+        {newFunc = (ele)=>{
+          const priceNum = Number(ele.price.slice(1))
+          return priceNum <= targetVal
+        }}
+      case "minPrice":
+        {newFunc = (ele)=>{
+          const priceNum = Number(ele.price.slice(1))
+          return priceNum >= targetVal
+        }}
+      case "prime":
+        {break}
+      case "rating":
+        {break}
+    }
     ///
     // const dummyObj = {};
     // dummyObj[key] = event.target.value;
