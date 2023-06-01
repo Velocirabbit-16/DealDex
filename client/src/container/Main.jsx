@@ -18,9 +18,16 @@ export default function Main() {
     //takes a key (spec), and an input (event.target), and adds it to userFilters
     const newState = structuredClone(userFilters);
     if (event.target.value === '') delete newState[key];
-    else newState[key] = event.target.value;
+    else newState[key] = event.target.value; // <- change this line {rating: (ele)=>ele.rating > 4, price: (ele)=>ele.price < 1500, }
     console.log('NewUserFilters', newState);
     setUserFilters(newState);
+
+    ///
+    // const dummyObj = {};
+    // dummyObj[key] = event.target.value;
+    // const newUserFilters = Object.assign({}, userFilters, dummyObj);
+    // setUserFilters(newUserFilters);
+    //
   };
 
   //takes in array of products, returns a filtered array.
