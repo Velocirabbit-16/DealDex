@@ -22,6 +22,32 @@ export default function ProductSpecifications(props) {
     width: '100%',
   };
 
+  // return (
+  //   <div>
+  //     {product === 'Computer Monitors' && (
+  //       <div>
+  //         <input
+  //           type="text"
+  //           placeholder="Max Price"
+  //           onChange={(e) => updateFilter(e.target.value, 'maxPrice')}
+  //           style={inputStyle}
+  //         ></input>
+  //         <input
+  //           type="text"
+  //           placeholder="Min Price"
+  //           onChange={(e) => updateFilter(e.target.value, 'minPrice')}
+  //           style={inputStyle}
+  //         ></input>
+  //         <input
+  //           type="text"
+  //           placeholder="Size (inches)"
+  //           style={inputStyle}
+  //         ></input>
+  //         <Resolution monitorSpecs />
+  //         <RefreshRate monitorSpecs />
+  //       </div>
+  //     )}
+
   return (
     <div>
       {product === 'Computer Monitors' && (
@@ -40,11 +66,19 @@ export default function ProductSpecifications(props) {
           ></input>
           <input
             type="text"
-            placeholder="Size (inches)"
+            placeholder="Min Rating"
             style={inputStyle}
+            onChange={(e) => updateFilter(e.target.value, 'rating')}
           ></input>
-          <Resolution monitorSpecs />
-          <RefreshRate monitorSpecs />
+          <div className="flex">
+            <input
+              type="checkbox"
+              placeholder="Prime"
+              onChange={(e) => updateFilter(e.target.checked, 'prime')}
+              className="flex bg-white hover:bg-gray-100 text-gray-800 mr-4 font-semibold py-2 w-5"
+            />
+            <p className="flex">Prime</p>
+          </div>
         </div>
       )}
       {product === 'TVs' && (

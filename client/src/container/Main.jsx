@@ -18,46 +18,46 @@ export default function Main() {
   const updateFilter = (targetVal, key) => {
     //takes a key (spec), and an input (event.target), and adds it to userFilters
     const newState = Object.assign({}, userFilters);
+    console.log(targetVal);
     if (targetVal === '') {
       delete newState[key];
-      return;
+    } else {
+      let newFunc;
+      //adds a new filter function to the array based on what kind of change is made
+      switch (key) {
+        case 'maxPrice': {
+          newFunc = (ele) => {
+            const priceNum = Number(ele.price.slice(1));
+            return priceNum <= targetVal; //if price is num just spit price straight in
+          };
+          break;
+        }
+        case 'minPrice': {
+          newFunc = (ele) => {
+            const priceNum = Number(ele.price.slice(1)); //if price is num just spit price straight in
+            return priceNum >= targetVal;
+          };
+          break;
+        }
+        case 'prime': {
+          newFunc = (ele) => {
+            return ele.prime == targetVal;
+          };
+          break;
+        }
+        case 'rating': {
+          newFunc = (ele) => {
+            return ele.rating >= targetVal;
+          };
+          break;
+        }
+        default: {
+          console.log('oops a mistake happened');
+          break;
+        }
+      }
+      newState[key] = newFunc;
     }
-    console.log(targetVal);
-    let newFunc;
-    //adds a new filter function to the array based on what kind of change is made
-    switch (key) {
-      case 'maxPrice': {
-        newFunc = (ele) => {
-          const priceNum = Number(ele.price.slice(1));
-          return priceNum <= targetVal; //if price is num just spit price straight in
-        };
-        break;
-      }
-      case 'minPrice': {
-        newFunc = (ele) => {
-          const priceNum = Number(ele.price.slice(1)); //if price is num just spit price straight in
-          return priceNum >= targetVal;
-        };
-        break;
-      }
-      case 'prime': {
-        newFunc = (ele) => {
-          return ele.prime == targetVal;
-        };
-        break;
-      }
-      case 'rating': {
-        newFunc = (ele) => {
-          return ele.rating >= targetVal;
-        };
-        break;
-      }
-      default: {
-        console.log('oops a mistake happened');
-        break;
-      }
-    }
-    newState[key] = newFunc;
     console.log('NewUserFilters', newState);
     setUserFilters(newState);
     ///
