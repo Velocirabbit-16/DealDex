@@ -45,7 +45,7 @@ export function Header() {
         </h1>
       </header>
       <div className=' flex'>
-        <button className=' flex w-24 h-12 mt-5 rounded-md text-base font-semibold bg-orange-300 cursor-pointer justify-center items-center mt-2'>
+        <button className=' flex w-24 h-12 mt-5 rounded-md text-base font-semibold bg-[#EAD29E] cursor-pointer justify-center items-center mt-2'>
           login
         </button>
         <button className='flex w-24 h-12 mr-4 mt-5 rounded-md bg-gray-300 text-base font-semibold cursor-pointer justify-center items-center ml-2 mt-2'>

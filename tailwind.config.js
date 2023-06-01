@@ -13,7 +13,8 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        'montserrat': ['Montserrat']
+        'montserrat': ['Montserrat'],
+        'amazonEmber': ['Amazon Ember, sans-serif;']
       }
     },
   }, gins: ["tailwindcss ,autoprefixer"],

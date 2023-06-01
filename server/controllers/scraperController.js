@@ -3,6 +3,7 @@ const { JSDOM } = require('jsdom');
 const scraperController = {};
 
 const url = 'https://www.amazon.com/s?k=monitors&qid=1685563321&ref=sr_pg_1';
+const url2 = 'https://www.amazon.ca/s?k=monitors&qid=1685563321&ref=sr_pg_1';
 const header = new Headers({
   'User-Agent': 'My User Agent',
 });

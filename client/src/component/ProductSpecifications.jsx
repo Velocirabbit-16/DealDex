@@ -30,10 +30,18 @@ export default function ProductSpecifications(props) {
           <input type='text' placeholder='Min Price' style={inputStyle}></input>
           <input
             type='text'
-            placeholder='Size (inches)'
+            placeholder='Min Rating'
             style={inputStyle}></input>
-          <Resolution monitorSpecs />
-          <RefreshRate monitorSpecs />
+          <div className='flex'>
+            <input
+              type='checkbox'
+              placeholder='Prime'
+              className='flex bg-white hover:bg-gray-100 text-gray-800 mr-4 font-semibold py-2 w-5 font-amazonEmber'
+            />
+            <p className='flex text-[#2A96C5] text-[20px] md:font-bold'>
+              Prime
+            </p>
+          </div>
         </div>
       )}
       {product === "TVs" && (
