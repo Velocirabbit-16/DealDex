@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import ProductList from '../component/ProductList.jsx';
 import SearchBar from '../component/SearchBar.jsx';
+import testArr from '../testJSON.js';
 
 export default function Main() {
   // define state variable
-  const [product, setProduct] = useState('');
-  const [specs, setSpecs] = useState([]); // or {} depends on backend
+  const [product, setProduct] = useState('Computer Monitors');
+  const [specs, setSpecs] = useState(testArr); // or {} depends on backend
   //const [filteredHits, setFilteredHits] = useState([]); // or {} depends on backend
   const [userFilters, setUserFilters] = useState({});
 
@@ -16,34 +17,49 @@ export default function Main() {
 
   const updateFilter = (targetVal, key) => {
     //takes a key (spec), and an input (event.target), and adds it to userFilters
-    const newState = structuredClone(userFilters);
-    if (targetVal === '') delete newState[key];
-    else newState[key] = targetVal; // <- change this line {rating: (ele)=>ele.rating > 4, price: (ele)=>ele.price < 1500, }
-    console.log('NewUserFilters', newState);
-    setUserFilters(newState);
+    const newState = Object.assign({}, userFilters);
+    if (targetVal === '') {
+      delete newState[key];
+      return;
+    }
+    console.log(targetVal);
     let newFunc;
+    //adds a new filter function to the array based on what kind of change is made
     switch (key) {
       case 'maxPrice': {
         newFunc = (ele) => {
           const priceNum = Number(ele.price.slice(1));
-          return priceNum <= targetVal;
+          return priceNum <= targetVal; //if price is num just spit price straight in
         };
         break;
       }
       case 'minPrice': {
         newFunc = (ele) => {
-          const priceNum = Number(ele.price.slice(1));
+          const priceNum = Number(ele.price.slice(1)); //if price is num just spit price straight in
           return priceNum >= targetVal;
         };
         break;
       }
       case 'prime': {
+        newFunc = (ele) => {
+          return ele.prime == targetVal;
+        };
         break;
       }
       case 'rating': {
+        newFunc = (ele) => {
+          return ele.rating >= targetVal;
+        };
+        break;
+      }
+      default: {
+        console.log('oops a mistake happened');
         break;
       }
     }
+    newState[key] = newFunc;
+    console.log('NewUserFilters', newState);
+    setUserFilters(newState);
     ///
     // const dummyObj = {};
     // dummyObj[key] = event.target.value;
@@ -96,7 +112,11 @@ export default function Main() {
         />
       </div>
       <div className="flex flex-grow">
-        <ProductList product={product} specs={specs} />
+        <ProductList
+          product={product}
+          specs={specs}
+          applyFilters={applyFilters}
+        />
       </div>
     </div>
   );
